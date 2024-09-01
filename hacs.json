@@ -1,0 +1,9 @@
+{
+  "name": "Logi Circle",
+  "hacs": "1.6.0",
+  "homeassistant": "2024.8",
+  "render_readme": true,
+  "zip_release": true,
+  "filename": "logi_circle.zip",
+  "hide_default_branch": true
+}

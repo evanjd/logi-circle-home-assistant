@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "domain": "logi_circle",
+  "name": "Logi Circle",
+  "codeowners": ["@evanjd"],
+  "config_flow": true,
+  "dependencies": ["ffmpeg", "http"],
+  "documentation": "https://github.com/evanjd/logi-circle-home-assistant",
+  "issue_tracker": "https://github.com/evanjd/logi-circle-home-assistant/issues",
+  "iot_class": "cloud_polling",
+  "loggers": ["logi_circle"],
+  "requirements": ["logi-circle==0.2.3"]
+}
