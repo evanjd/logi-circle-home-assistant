@@ -16,6 +16,7 @@ from homeassistant.const import (
     STATE_ON,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_aiohttp_proxy_stream
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -147,6 +148,30 @@ class LogiCam(Camera):
     ) -> bytes | None:
         """Return a still image from the camera."""
         return await self._camera.live_stream.download_jpeg()
+
+    async def handle_async_mjpeg_stream(self, request):
+        """Generate an HTTP MJPEG stream from the camera's live stream."""
+        from haffmpeg.camera import CameraMjpeg
+
+        live_stream = await self._camera.live_stream.get_rtsp_url()
+
+        stream = CameraMjpeg(self._ffmpeg.binary)
+        # Extend the timeout if device is in deep sleep
+        timeout = 60 if self._camera.pir_wake_up else 10
+
+        await stream.open_camera(live_stream)
+
+        try:
+            stream_reader = await stream.get_reader()
+            return await async_aiohttp_proxy_stream(
+                self.hass,
+                request,
+                stream_reader,
+                self._ffmpeg.ffmpeg_stream_content_type,
+                timeout=timeout,
+            )
+        finally:
+            await stream.close()
 
     async def async_turn_off(self) -> None:
         """Disable streaming mode for this camera."""
