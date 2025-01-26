@@ -1,5 +1,8 @@
 # Logi Circle component for Home Assistant
 
+> [!CAUTION]
+> Logitech appear to be cancelling all API keys granted to Home Assistant users, including my own key. As a result, you'll see a blank page when attempting to log in through Home Assistant. I've archived this project as a result. If you own a Circle 2 camera, you may be able to convert your camera to a HomeKit camera and integrate it with Home Assistant via [go2rtc](https://github.com/AlexxIT/go2rtc?tab=readme-ov-file#source-homekit). Otherwise, I recommend switching to a camera brand that supports local access, e.g. TP-Link Tapo. 
+
 This is a custom component to allow you to integrate your [Logi Circle](https://www.logitech.com/en-us/product/circle-2-home-security-camera) cameras into Home Assistant using their public API.
 
 Unfortunately, Logitech stopped accepting applications for access to the Logi Circle API in May 2022. As a result, this component was removed from Home Assistant core as of the 2024.9 release. This repository exists to allow anyone with an existing API key to continue using the component.
